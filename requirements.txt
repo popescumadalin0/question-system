@@ -1,0 +1,9 @@
+﻿torch
+transformers
+datasets
+nltk
+spacy
+scikit-learn
+
+numpy
+evaluate
