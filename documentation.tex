@@ -1,0 +1,252 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{setspace}
+\geometry{margin=2.5cm}
+\onehalfspacing
+
+\title{Technical Documentation\\
+Extractive Question Answering System Based on BERT}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+This document describes the technologies used in an extractive \textit{Question Answering} (QA) project, as well as the general structure of the project and how it can be executed. The goal of the project is to develop a system that can answer questions by extracting a relevant fragment from a given text, using modern natural language processing techniques.
+
+The main technologies used are:
+\begin{itemize}
+    \item BERT and the Hugging Face Transformers library
+    \item spaCy
+    \item NLTK
+    \item scikit-learn
+    \item Hugging Face Datasets and Evaluate
+\end{itemize}
+
+\section{BERT (Bidirectional Encoder Representations from Transformers)}
+
+BERT is a language model based on the Transformer architecture, developed by Google. Its main characteristics are:
+
+\begin{itemize}
+    \item It is a bidirectional model, meaning it analyzes context from both the left and the right of a word simultaneously.
+    \item It is pre-trained on very large amounts of text using tasks such as:
+    \begin{itemize}
+        \item Masked Language Modeling (MLM)
+        \item Next Sentence Prediction (NSP)
+    \end{itemize}
+    \item It can be fine-tuned for specific tasks such as:
+    \begin{itemize}
+        \item Text classification
+        \item Named Entity Recognition
+        \item Question Answering
+    \end{itemize}
+\end{itemize}
+
+In this project, BERT is used for the extractive \textit{Question Answering} task, where the model predicts the start and end positions of the answer within a text.
+
+\section{Hugging Face Transformers}
+
+The Hugging Face Transformers library provides:
+\begin{itemize}
+    \item Standardized implementations for Transformer models (BERT, RoBERTa, DistilBERT, GPT, etc.)
+    \item Optimized tokenizers
+    \item Classes for training and evaluation
+    \item Ready-to-use pipelines for inference
+\end{itemize}
+
+Advantages:
+\begin{itemize}
+    \item Allows fast loading of pre-trained models
+    \item Simplifies the fine-tuning process
+    \item Offers a large ecosystem of models and datasets
+\end{itemize}
+
+In the project, Hugging Face is used for:
+\begin{itemize}
+    \item Loading the BERT model
+    \item Tokenizing text
+    \item Training and evaluation
+    \item Running inference through the QA pipeline
+\end{itemize}
+
+\section{spaCy}
+
+spaCy is a natural language processing library focused on real-world applications.
+
+Main features:
+\begin{itemize}
+    \item Tokenization
+    \item Sentence segmentation
+    \item Lemmatization
+    \item Syntactic parsing
+    \item Named Entity Recognition (NER)
+\end{itemize}
+
+Characteristics:
+\begin{itemize}
+    \item Very fast and optimized
+    \item Provides pre-trained models for multiple languages
+    \item Easy to integrate into applications
+\end{itemize}
+
+In the project, spaCy is used for:
+\begin{itemize}
+    \item Cleaning and normalizing text
+    \item Removing invalid characters
+    \item Light processing without altering text positions (important for extractive QA)
+\end{itemize}
+
+\section{NLTK (Natural Language Toolkit)}
+
+NLTK is one of the oldest and most well-known NLP libraries in Python.
+
+Features:
+\begin{itemize}
+    \item Tokenization
+    \item Sentence segmentation
+    \item Stemming and lemmatization
+    \item Stopwords
+    \item Linguistic resources
+\end{itemize}
+
+Advantages:
+\begin{itemize}
+    \item Very good for educational purposes
+    \item Offers many classical NLP algorithms
+\end{itemize}
+
+In the project, NLTK is used for:
+\begin{itemize}
+    \item Segmenting context into sentences
+    \item Analysis and debugging
+    \item Possible splitting of long texts into chunks
+\end{itemize}
+
+\section{scikit-learn}
+
+scikit-learn is a classical machine learning library for Python.
+
+It provides:
+\begin{itemize}
+    \item Classification, regression, and clustering algorithms
+    \item Evaluation tools
+    \item Data preprocessing utilities
+\end{itemize}
+
+In the project, scikit-learn is used optionally for:
+\begin{itemize}
+    \item Computing additional metrics
+    \item Statistical analysis of results
+    \item Performance reports
+\end{itemize}
+
+\section{Hugging Face Datasets}
+
+Hugging Face Datasets is a library for efficient handling of large datasets.
+
+Features:
+\begin{itemize}
+    \item Fast loading of standard datasets (SQuAD, GLUE, etc.)
+    \item Support for map, filter, shuffle operations
+    \item Integration with Transformers
+\end{itemize}
+
+In the project it is used for:
+\begin{itemize}
+    \item Loading the SQuAD dataset
+    \item Preprocessing and tokenizing data
+    \item Splitting into training and validation sets
+\end{itemize}
+
+\section{Hugging Face Evaluate}
+
+Evaluate is a library for computing standard metrics.
+
+Features:
+\begin{itemize}
+    \item Implementations for NLP metrics
+    \item Support for SQuAD, BLEU, ROUGE, etc.
+\end{itemize}
+
+In the project it is used for:
+\begin{itemize}
+    \item Computing Exact Match and F1 metrics for QA
+\end{itemize}
+
+\section{Project Structure}
+
+The project follows a standard pipeline:
+
+\begin{enumerate}
+    \item Data Loading
+    \item Preprocessing
+    \item Model Implementation
+    \item Evaluation
+\end{enumerate}
+
+The logical structure is:
+
+\begin{itemize}
+    \item Loading data (e.g., SQuAD or local data)
+    \item Cleaning text with spaCy and NLTK
+    \item Tokenization with Hugging Face Tokenizer
+    \item Training the BERT model
+    \item Evaluation using standard metrics
+    \item Inference on new data
+\end{itemize}
+
+The main file contains:
+\begin{itemize}
+    \item Preprocessing functions
+    \item Model configuration
+    \item Training and evaluation
+    \item Inference for the user
+\end{itemize}
+
+\section{How to Run}
+
+There are two main usage modes:
+
+\subsection{Training and Evaluation}
+
+The project is run in training mode to adapt the model to the SQuAD dataset:
+
+\begin{itemize}
+    \item Data is loaded
+    \item Preprocessing is applied
+    \item The model is trained
+    \item Metrics are computed
+    \item The resulting model is saved
+\end{itemize}
+
+\subsection{Inference}
+
+A pre-trained model is used to answer questions:
+
+\begin{itemize}
+    \item The user provides a text and a question
+    \item The text is cleaned
+    \item The model predicts the answer position
+    \item The extracted fragment is displayed
+\end{itemize}
+
+\section{Conclusion}
+
+The project demonstrates the integrated use of the most popular modern NLP technologies:
+\begin{itemize}
+    \item Transformer models (BERT)
+    \item The Hugging Face ecosystem
+    \item Classical NLP libraries (spaCy, NLTK)
+    \item Evaluation tools (Evaluate, scikit-learn)
+\end{itemize}
+
+This combination enables rapid development of a robust Question Answering system that is easy to extend and adapt for other natural language processing tasks.
+
+\end{document}
